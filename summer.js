@@ -5,16 +5,19 @@
 
 
 
-
-
-
 /**|CONFIGURATION|**/
 var val = {
     min: 1,  //minimum value for each number
     max: 9,  //maximum value for each number
     lv: 5,   //number of lines/columns
-    skin: 'color',
+    skin: 'none', //try 'colorful' or 'minimal'
 };
+
+
+
+
+
+
 
 
 
@@ -64,27 +67,27 @@ var matrix = new Matrix({
 /**|SKINS|**/
 var frames = 0;
 var colors = {
-    backgroundColor: color(250),
-    sumText: color(100),
-    sumFill: color(170),
-    sumStroke: color(80),
-    sumSelected: color(100),
-    elementText: color(100),
-    elementFill: color(230),
-    elementStroke: color(100),
-    elementSelected: color(100),
+    backgroundColor: color(0),
+    sumText: color(0),
+    sumFill: color(0),
+    sumStroke: color(0),
+    sumSelected: color(0),
+    elementText: color(0),
+    elementFill: color(0),
+    elementStroke: color(0),
+    elementSelected: color(0),
 };
 var skin = {
     colors: function(){colors = {
-        backgroundColor: color(250),
-        sumText: color(100),
-        sumFill: color(170),
-        sumStroke: color(80),
-        sumSelected: color(100),
-        elementText: color(100),
-        elementFill: color(230),
-        elementStroke: color(100),
-        elementSelected: color(100),
+        backgroundColor: color(0),
+        sumText: color(0),
+        sumFill: color(0),
+        sumStroke: color(0),
+        sumSelected: color(0),
+        elementText: color(0),
+        elementFill: color(0),
+        elementStroke: color(0),
+        elementSelected: color(0),
     };}(),
     elementS: function(x, y) {},
     elementTextS: function(txt, x, y) {},
@@ -105,13 +108,13 @@ var skinDefault = {
         backgroundColor: color(250),
         sumText: color(100),
         sumFill: color(170),
-        sumStroke: color(80),
+        sumStroke: color(100),
         sumSelected: color(100),
         elementText: color(100),
         elementFill: color(230),
         elementStroke: color(100),
         elementSelected: color(100),
-    };}(),
+    };},
     elementS: function(x, y) {
         fill(colors.elementFill);
         stroke(colors.elementStroke);
@@ -188,7 +191,7 @@ var skinMinimal = {
         elementFill: color(230),
         elementStroke: color(100),
         elementSelected: color(100),
-    };}(),
+    };},
     elementS: function(x, y) {},
     elementTextS: function(txt, x, y) {
         fill(colors.elementText);
@@ -287,7 +290,7 @@ var skinColorful = {
         elementFill: color(230),
         elementStroke: color(100),
         elementSelected: color(100),
-    };}(),
+    };},
     elementS: function(x, y) {
         fill(colors.sumFill);
         stroke(colors.sumStroke);
@@ -454,8 +457,15 @@ var skins = function(s) {
             skin = skinColorful;
         break;
         
-        default: skin = skinDefault;
+        case 'none':
+            skin = skinDefault;
+        break;
+        
+        default: 
+            skin = skinDefault;
+        break;
     }
+    skin.colors();
     if (!val.win) {
         skin.animateS();
     }
