@@ -3,15 +3,15 @@ Javascript adding Game
 
 ### How to play
 
--Click the numbers in the middle to lock/unlock them.
+- Click the numbers in the middle to lock/unlock them.
 
--Mouse over the outside ring to see the current sum of that line/column
+- Mouse over the outside ring to see the current sum of that line/column
 
--The ouside ring shows the needed values and
+- The ouside ring shows the needed values and
 will tell if the sum of the unlocked numbers is correct
 
 
--Have fun!
+- Have fun!
 
 ## Code
 I wrote this code on a ProcessingJS environment at KhanAcademy.
