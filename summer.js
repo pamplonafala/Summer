@@ -4,20 +4,8 @@
 **/
 
 
-/** HOW TO PLAY **//*
 
--click the numbers in the middle to lock/unlock them.
 
--mouse over the outside ring to see the current sum of that line/column
-
--the ouside ring shows the needed values and
-will tell if the sum of the unlocked numbers is correct
-
--#not yet#click the sum ring to lock/unlock the respective line/column
-
--have fun!
-
-*//** ~~~~~~~~ **/
 
 
 /**|CONFIGURATION|**/
