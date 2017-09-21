@@ -4,6 +4,21 @@
 **/
 
 
+/** HOW TO PLAY **//*
+
+-click the numbers in the middle to lock/unlock them.
+
+-mouse over the outside ring to see the current sum of that line/column
+
+-the ouside ring shows the needed values and
+will tell if the sum of the unlocked numbers is correct
+
+-#not yet#click the sum ring to lock/unlock the respective line/column
+
+-have fun!
+
+*//** ~~~~~~~~ **/
+
 
 /**|CONFIGURATION|**/
 var val = {
@@ -12,12 +27,6 @@ var val = {
     lv: 5,   //number of lines/columns
     skin: 'none', //try 'colorful' or 'minimal'
 };
-
-
-
-
-
-
 
 
 
@@ -178,7 +187,9 @@ var skinDefault = {
     winS: function() {
         colors.backgroundColor = color(150, 250, 150);
     },
-    animateS: function() {},
+    animateS: function() {
+        this.colors();
+    },
 };
 var skinMinimal = {
     colors: function(){colors = {
@@ -262,7 +273,9 @@ var skinMinimal = {
     winS: function() {
         colors.backgroundColor = color(150, 250, 150);
     },
-    animateS: function() {},
+    animateS: function() {
+        this.colors();
+    },
 };
 var skinColorful = {
     bool: true,
@@ -283,17 +296,27 @@ var skinColorful = {
     colors: function(){colors = {
         backgroundColor: color(250),
         sumText: color(0),
-        sumFill: color(50),
-        sumStroke: color(30),
         sumSelected: color(100),
         elementText: color(0, 0, 0, 200),
-        elementFill: color(230),
-        elementStroke: color(100),
-        elementSelected: color(100),
+        elementFill: this.randRGB(200, 250),
+        elementStroke: color(red(colors.elementFill),
+                            green(colors.elementFill),
+                            blue(colors.elementFill),250),
+        elementSelected: this.randRGB(100, 250),
+        sumFill: this.randRGB(150, 100),
+        sumStroke: color(255, 255, 255, 100),
     };},
     elementS: function(x, y) {
-        fill(colors.sumFill);
-        stroke(colors.sumStroke);
+        fill(100);
+        rect(x-(matrix.elementSize-10)/2, 
+             y-(matrix.elementSize-10)/2, 
+             matrix.elementSize-10, 
+             matrix.elementSize-10, 
+             10
+        );
+        
+        noFill();
+        stroke(colors.elementStroke);
         strokeWeight(2);
         rect(x-(matrix.elementSize-10)/2, 
              y-(matrix.elementSize-10)/2, 
@@ -301,16 +324,20 @@ var skinColorful = {
              matrix.elementSize-10, 
              10
         );
-        strokeWeight(1);
         
-        fill(colors.elementFill);
-        stroke(colors.elementStroke);
-        rect(x-(matrix.elementSize-8)/2, 
-             y-(matrix.elementSize-8)/2, 
-             matrix.elementSize-8, 
-             matrix.elementSize-8, 
+        fill(
+            red(colors.elementFill),
+            green(colors.elementFill),
+            blue(colors.elementFill),
+            100
+            );
+        rect(x-(matrix.elementSize-10)/2, 
+             y-(matrix.elementSize-10)/2, 
+             matrix.elementSize-10, 
+             matrix.elementSize-10, 
              10
         );
+        strokeWeight(1);
     },
     elementTextS: function(txt, x, y) {
         textSize(20);
@@ -323,8 +350,8 @@ var skinColorful = {
         noFill();
         stroke(colors.elementSelected);
         strokeWeight(4);
-        rect(x-(matrix.elementSize-9)/2, y-(matrix.elementSize-9)/2, 
-             matrix.elementSize-9, matrix.elementSize-9, 10);
+        rect(x-(matrix.elementSize-10)/2, y-(matrix.elementSize-10)/2, 
+             matrix.elementSize-10, matrix.elementSize-10, 10);
         strokeWeight(1);
     },
     elementHideS: function(x, y) {
@@ -344,8 +371,12 @@ var skinColorful = {
     },
     sumS: function(x, y) {
         fill(colors.sumFill);
-        stroke(colors.sumStroke);
         strokeWeight(3);
+        noStroke();
+        ellipse(x, y, matrix.elementSize, matrix.elementSize);
+        
+        noFill();
+        stroke(colors.sumStroke);
         ellipse(x, y, matrix.elementSize/10*9, matrix.elementSize/10*9);
         strokeWeight(1);
     },
@@ -408,7 +439,7 @@ var skinColorful = {
     },
     winS: function() {
         colors.backgroundColor = color(150, 250, 150);
-        if (frames%2 === 0) {
+        if (frames%10 === 0) {
             colors.elementFill = this.randRGB(200, 150);
             colors.elementStroke = color(red(colors.elementFill),
                                     green(colors.elementFill),
@@ -429,16 +460,8 @@ var skinColorful = {
         frames++;
     },
     animateS: function() {
-        if (frames%80 === 0) {
-            colors.elementFill = this.randRGB(200, 150);
-            colors.elementStroke = color(red(colors.elementFill),
-                                    green(colors.elementFill),
-                                    blue(colors.elementFill),250);
-            colors.elementSelected = this.randRGB(100, 250);
-            colors.sumFill = this.randRGB(150, 100);
-            colors.sumStroke = color(red(colors.sumFill),
-                                    green(colors.sumFill),
-                                    blue(colors.sumFill),250);
+        if (frames%100 === 0) {
+            this.colors();
         }
         frames++;
     },
@@ -457,15 +480,10 @@ var skins = function(s) {
             skin = skinColorful;
         break;
         
-        case 'none':
-            skin = skinDefault;
-        break;
-        
         default: 
             skin = skinDefault;
         break;
     }
-    skin.colors();
     if (!val.win) {
         skin.animateS();
     }
